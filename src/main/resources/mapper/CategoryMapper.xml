@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tedu.csmall.product.mapper.CategoryMapper">
+
+    <insert id="insert1">
+        INSERT INTO pms_category(
+            name, parent_id, depth, keywords, sort,
+            icon, enable, is_parent, is_display, gmt_create,
+            gmt_modified
+        )
+        VALUES (
+                #{name}, #{parentId}, #{depth}, #{keywords}, #{sort},
+                #{icon}, #{enable}, #{isParent}, #{isDisplay}, #{gmtCreate},
+                #{gmtModified})
+    </insert>
+
+    <select id="countC" resultType="int">
+        SELECT count(*) FROM pms_category
+    </select>
+
+    <select id="getStandardByIdC" resultMap="StandardResultMapC">
+        SELECT
+            <include refid="StandardQueryFieldsC"></include>
+        FROM
+            pms_category
+        WHERE
+            id=#{id}
+    </select>
+
+    <sql id="StandardQueryFieldsC">
+        <if test="true">
+            name, parent_id, depth, keywords, sort,
+            icon, enable, is_parent, is_display
+        </if>
+    </sql>
+
+    <resultMap id="StandardResultMapC" type="cn.tedu.csmall.product.pojo.vo.CategoryStandardVO">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="depth" property="depth"/>
+        <result column="keywords" property="keywords"/>
+        <result column="sort" property="sort"/>
+        <result column="icon" property="icon"/>
+        <result column="enable" property="enable"/>
+        <result column="is_parent" property="isParent"/>
+        <result column="is_display" property="isDisplay"/>
+    </resultMap>
+</mapper>
