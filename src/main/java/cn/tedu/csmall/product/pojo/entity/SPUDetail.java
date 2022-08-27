@@ -1,8 +1,11 @@
 package cn.tedu.csmall.product.pojo.entity;
 
+import lombok.Data;
+
 import java.time.LocalDateTime;
 
 //SPU详情表
+@Data
 public class SPUDetail {
     Long id;//记录id
     Long spuId;//SPU id

@@ -6,6 +6,12 @@ import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 
+/**
+ *  处理类别数据的Mapper接口
+ *
+ *  @author zml
+ *  @version 0.0.1
+ */
 @Repository
 public interface CategoryMapper {
     int insert1(Category category);

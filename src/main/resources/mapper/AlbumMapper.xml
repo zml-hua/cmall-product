@@ -1,26 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="cn.tedu.csmall.product.mapper.BrandMapper">
+<mapper namespace="cn.tedu.csmall.product.mapper.AlbumMapper">
 
     <!-- -->
-    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO pms_brand (
-            name, pinyin, logo, description, keywords,
-            sort, sales, product_count, comment_count, positive_comment_count,
-            enable
+    <insert id="insertAlbum" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO pms_album (
+           name, description, sort
         ) VALUES (
-                     #{name}, #{pinyin}, #{logo}, #{description}, #{keywords},
-                     #{sort}, #{sales}, #{productCount}, #{commentCount}, #{positiveCommentCount},
-                     #{enable}
+                     #{name}, #{description},#{sort}
                  )
     </insert>
 
-    <delete id="deleteById">
-        DELETE FROM pms_brand WHERE id=#{id}
+    <delete id="deleteAlbumById">
+        DELETE FROM pms_album WHERE id=#{id}
     </delete>
 
-    <delete id="deleteByIds">
+    <delete id="deleteAlbumByIds">
          DELETE FROM pms_brand WHERE id IN (
              <foreach collection="array" item="id" separator=",">
                 #{id}
@@ -28,7 +24,30 @@
              )
     </delete>
 
-    <select id="getStandardById" resultMap="StandardResultMap">
+    <update id="updateAlbumById">
+        UPDATE
+           pms_album
+        <set>
+            <if test="name!= null" >
+                name=#{name},
+            </if>
+            <if test="description!= null" >
+                description=#{description},
+            </if>
+            <if test="sort!= null" >
+                sort=#{sort},
+            </if>
+        </set>
+        WHERE
+        id=#{id}
+    </update>
+
+    <select id="countAlbum" resultType="int">
+        SELECT count(*) FROM pms_album
+    </select>
+
+
+    <select id="getAlbumStandardById" resultMap="StandardResultMap">
         SELECT
             <include refid="StandardQueryFields"></include>
         FROM
@@ -39,18 +58,15 @@
 
     <sql id="StandardQueryFields">
         <if test="true">
-            id, name, pinyin, logo, description,
-            keywords, sort, sales, product_count, comment_count,
-            positive_comment_count, enable
+            name, description, sort
         </if>
     </sql>
 
-    <resultMap id="StandardResultMap" type="cn.tedu.csmall.product.pojo.vo.BrandStandardVO">
+    <resultMap id="StandardResultMap" type="cn.tedu.csmall.product.pojo.vo.AlbumStandardVO">
         <id column="id" property="id"/>
         <result column="name" property="name"/>
-        <result column="product_count" property="productCount"/>
-        <result column="comment_count" property="commentCount"/>
-        <result column="positive_comment_count" property="positiveCommentCount"/>
+        <result column="description" property="description"/>
+        <result column="sort" property="sort"/>
     </resultMap>
 
     <select id="list" resultMap="ListResultMap">
@@ -62,12 +78,12 @@
         sort DESC, id
     </select>
 
-    <!--int countByName(String name);-->
-    <select id="countByName" resultType="java.lang.Integer" >
+    <!--int countAlbumByName(String name);-->
+    <select id="countAlbumByName" resultType="java.lang.Integer" >
         SELECT
            COUNT(*)
         FROM
-           pms_brand
+           pms_album
         WHERE name=#{name}
     </select>
 

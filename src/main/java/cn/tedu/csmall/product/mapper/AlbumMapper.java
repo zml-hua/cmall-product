@@ -1,50 +1,51 @@
 package cn.tedu.csmall.product.mapper;
 
+import cn.tedu.csmall.product.pojo.entity.Album;
 import cn.tedu.csmall.product.pojo.entity.Brand;
+import cn.tedu.csmall.product.pojo.vo.AlbumStandardVO;
 import cn.tedu.csmall.product.pojo.vo.BrandListItemVO;
 import cn.tedu.csmall.product.pojo.vo.BrandStandardVO;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
- *  处理品牌数据的Mapper接口
+ *  处理相册数据的Mapper接口
  *
  *  @author zml
  *  @version 0.0.1
  */
 @Repository
-public interface BrandMapper {
+public interface AlbumMapper {
 
     /**
-    *插入品牌数据
+    *插入相册数据
     *
-    * @param brand 品牌数据的对象
+    * @param album 品牌数据的对象
     * @return 受影响的额行数
     */
-    int insert(Brand brand);
+    int insertAlbum(Album album);
 
     /**
      * 根据id删除品牌数据
      * @param id 参数
      * @return 受影响的行数
      */
-    int deleteById(Long id);
+    int deleteAlbumById(Long id);
 
     /*int deleteByIds(List<Long> ids);*/
     /*int deleteByIds(Long[] ids);*/
 
-    int deleteByIds(Long... ids);
+    int deleteAlbumByIds(Long... ids);
 
-    int updateById(Brand brand);
+    int updateAlbumById(Album album);
 
     /**
      * 统计品牌数据的数量
      *
      * @return 品牌数据的数量
      */
-    int count();
+    int countAlbum();
 
 
     /**
@@ -53,7 +54,7 @@ public interface BrandMapper {
      * @param id 品牌id
      * @return 返回与id匹配的品牌数据详情，如果没有匹配的数据，则返回null
      */
-    BrandStandardVO getStandardById(Long id);
+     AlbumStandardVO getAlbumStandardById(Long id);
 
     /**
      * 查询品牌列表
@@ -62,6 +63,6 @@ public interface BrandMapper {
      */
     List<BrandListItemVO> list();
 
-    int countByName(String name);
+    int countAlbumByName(String name);
 
 }

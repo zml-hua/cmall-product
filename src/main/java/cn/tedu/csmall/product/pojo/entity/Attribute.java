@@ -1,8 +1,11 @@
 package cn.tedu.csmall.product.pojo.entity;
 
+import lombok.Data;
+
 import java.time.LocalDateTime;
 
 //属性表
+@Data
 public class Attribute {
     Long id;//记录id
     Long templateId;//所属属性模版id

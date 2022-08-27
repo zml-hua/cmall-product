@@ -1,8 +1,11 @@
 package cn.tedu.csmall.product.pojo.entity;
 
+import lombok.Data;
+
 import java.time.LocalDateTime;
 
 //SPU（Standard Product Unit）表
+@Data
 public class SPU {
     Long id;//记录id
     String name;//SPU名称

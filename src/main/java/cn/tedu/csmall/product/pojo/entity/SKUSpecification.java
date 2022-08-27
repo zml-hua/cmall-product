@@ -1,8 +1,11 @@
 package cn.tedu.csmall.product.pojo.entity;
 
+import lombok.Data;
+
 import java.time.LocalDateTime;
 
 //SKU规格参数表（存储各SKU的属性与值，即规格参数）
+@Data
 public class SKUSpecification {
     Long id;//记录id
     Long skuId;//SKU id

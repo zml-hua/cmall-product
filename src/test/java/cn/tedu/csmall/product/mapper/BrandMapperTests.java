@@ -1,13 +1,16 @@
 package cn.tedu.csmall.product.mapper;
 
 import cn.tedu.csmall.product.pojo.entity.Brand;
+import cn.tedu.csmall.product.pojo.vo.BrandListItemVO;
 import cn.tedu.csmall.product.pojo.vo.BrandStandardVO;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
 import java.util.List;
+
+@Slf4j
 @SpringBootTest
 public class BrandMapperTests {
 
@@ -18,17 +21,18 @@ public class BrandMapperTests {
     void testInsert() {
         Brand brand = new Brand();
         brand.setName("测试品牌998");
-        System.out.println("插入品牌之前，参数对象=" + brand);
+        log.debug
+("插入品牌之前，参数对象=" + brand);
         int rows = mapper.insert(brand);
-        System.out.println("插入品牌完成，受影响的行数=" + rows);
-        System.out.println("插入品牌之后，参数对象=" + brand);
+        log.debug("插入品牌完成，受影响的行数={}",rows);
+        log.debug("插入品牌之后，参数对象={}",brand);
     }
 
     @Test
     void testDeleteById() {
         Long id = 10L;
         int rows = mapper.deleteById(id);
-        System.out.println("根据id删除品牌完成，受影响的行数=" + rows);
+        log.debug("根据id删除品牌完成，受影响的行数={}",rows);
     }
 
     @Test
@@ -44,19 +48,36 @@ public class BrandMapperTests {
         int rows = mapper.deleteByIds(ids);*/
 
         int rows = mapper.deleteByIds(11L,12L);
-        System.out.println("根据id批量删除品牌完成，受影响的行数=" + rows);
+        log.debug("根据id批量删除品牌完成，受影响的行数={}",rows);
     }
 
     @Test
     void testGetStandardById(){
         Long id = 3L;
         BrandStandardVO result = mapper.getStandardById(id);
-        System.out.println("根据id=" + id + "查询品牌详情，结果=" + result);
+        log.info("根据id={}查询品牌详情，结果={}",id,result);
     }
 
     @Test
     void  testCount() {
         int count = mapper.count();
     }
+
+    @Test
+    void testList(){
+        List<BrandListItemVO> list = mapper.list();
+        log.debug("品牌受影响数量：{}",list.size());
+        for (BrandListItemVO brandListItemVO : list) {
+            log.debug("{}",brandListItemVO);
+        }
+    }
+
+    @Test
+    void testCountByName(){
+        String name = "小米";
+        int count = mapper.countByName(name);
+        log.debug("count={}",count);
+    }
+
 
 }

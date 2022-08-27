@@ -1,12 +1,11 @@
-package cn.tedu.csmall.product.pojo.entity;
+package cn.tedu.csmall.product.pojo.vo;
 
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Data
-public class Album {
+public class AlbumStandardVO {
     private Long id;
     private String name;
     private String description;
