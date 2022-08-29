@@ -13,6 +13,18 @@
             #{gmtCreate}, #{gmtModified})
     </insert>
 
+    <delete id="deletePictureById">
+        DELETE FROM pms_picture WHERE id=#{id}
+    </delete>
+
+    <delete id="deletePictureByIds">
+        DELETE FROM pms_picture WHERE id IN (
+        <foreach collection="array" item="id" separator=",">
+            #{id}
+        </foreach>
+        )
+    </delete>
+
     <select id="countP" resultType="int">
         SELECT count(*) FROM pms_picture
     </select>
@@ -34,6 +46,31 @@
     </sql>
 
     <resultMap id="StandardResultMapP" type="cn.tedu.csmall.product.pojo.vo.PictureStandardVO">
+        <id column="id" property="id"/>
+        <result column="album_id" property="albumId"/>
+        <result column="url" property="url"/>
+        <result column="description" property="description"/>
+        <result column="width" property="width"/>
+        <result column="height" property="height"/>
+        <result column="is_cover" property="isCover"/>
+        <result column="sort" property="sort"/>
+    </resultMap>
+
+    <select id="listPicture" resultMap="ListPictureResultMap">
+        SELECT
+        <include refid="ListQueryFieldsP"></include>
+        FROM
+        pms_picture
+    </select>
+
+    <sql id="ListQueryFieldsP">
+        <if test="true">
+            id,album_id,url,description, width,
+            height, is_cover,sort
+        </if>
+    </sql>
+
+    <resultMap id="ListPictureResultMap" type="cn.tedu.csmall.product.pojo.vo.PictureListItemVO">
         <id column="id" property="id"/>
         <result column="album_id" property="albumId"/>
         <result column="url" property="url"/>

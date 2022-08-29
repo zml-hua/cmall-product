@@ -47,36 +47,27 @@
     </select>
 
 
-    <select id="getAlbumStandardById" resultMap="StandardResultMap">
+    <select id="getAlbumStandardById" resultMap="StandardAblumResultMap">
         SELECT
-            <include refid="StandardQueryFields"></include>
+            <include refid="StandardAlbumQueryFields"></include>
         FROM
-            pms_brand
+            pms_album
         WHERE
             id=#{id}
     </select>
 
-    <sql id="StandardQueryFields">
+    <sql id="StandardAlbumQueryFields">
         <if test="true">
             name, description, sort
         </if>
     </sql>
 
-    <resultMap id="StandardResultMap" type="cn.tedu.csmall.product.pojo.vo.AlbumStandardVO">
+    <resultMap id="StandardAblumResultMap" type="cn.tedu.csmall.product.pojo.vo.AlbumStandardVO">
         <id column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="description" property="description"/>
         <result column="sort" property="sort"/>
     </resultMap>
-
-    <select id="list" resultMap="ListResultMap">
-        SELECT
-        <include refid="ListQueryFields" />
-        FROM
-        pms_brand
-        ORDER BY
-        sort DESC, id
-    </select>
 
     <!--int countAlbumByName(String name);-->
     <select id="countAlbumByName" resultType="java.lang.Integer" >
@@ -87,20 +78,28 @@
         WHERE name=#{name}
     </select>
 
-    <sql id="ListQueryFields">
+
+    <select id="listAlbum" resultMap="ListAlbumResultMap">
+        SELECT
+        <include refid="ListAlbumQueryFields"/>
+        FROM
+        pms_album
+        ORDER BY
+        sort DESC, id
+    </select>
+
+    <sql id="ListAlbumQueryFields">
         <if test="true">
-            id, name, pinyin, logo, description,
-            keywords, sort, sales, product_count, comment_count,
-            positive_comment_count, enable
+            id,name, description, sort
         </if>
     </sql>
 
-    <resultMap id="ListResultMap" type="cn.tedu.csmall.product.pojo.vo.BrandListItemVO">
+    <resultMap id="ListAlbumResultMap"
+               type="cn.tedu.csmall.product.pojo.vo.AlbumListItemVO">
         <id column="id" property="id"/>
         <result column="name" property="name"/>
-        <result column="product_count" property="productCount"/>
-        <result column="comment_count" property="commentCount"/>
-        <result column="positive_comment_count" property="positiveCommentCount"/>
+        <result column="description" property="description"/>
+        <result column="sort" property="sort"/>
     </resultMap>
 
 </mapper>

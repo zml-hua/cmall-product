@@ -1,12 +1,15 @@
 package cn.tedu.csmall.product.mapper;
 
 import cn.tedu.csmall.product.pojo.entity.Picture;
-import cn.tedu.csmall.product.pojo.vo.CategoryStandardVO;
-import cn.tedu.csmall.product.pojo.vo.PictureStandardVO;
+import cn.tedu.csmall.product.pojo.vo.*;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
+@Slf4j
 @SpringBootTest
 public class PictureMapperTests {
 
@@ -23,16 +26,38 @@ public class PictureMapperTests {
     }
 
     @Test
+    void testDeleteById() {
+        Long id = 3L;
+        int rows = mapper.deletePictureById(id);
+        log.debug("根据id删除图片完成，受影响的行数={}",rows);
+    }
+
+    @Test
+    void testDeleteByIds(){
+        int rows = mapper.deletePictureByIds(4L,5L);
+        log.debug("根据id批量删除图片完成，受影响的行数={}",rows);
+    }
+
+    @Test
     void  testCountP() {
         int count = mapper.countP();
-        System.out.println("统计相册的数量完成，相册的数量=" + count);
+        System.out.println("统计图片的数量完成，相册的数量=" + count);
     }
 
     @Test
     void testCetStandardByIdP(){
         Long id = 3L;
         PictureStandardVO result = mapper.getStandardByIdP(id);
-        System.out.println("根据id=" + id + "查询相册详情，结果=" + result);
+        System.out.println("根据id=" + id + "查询图片详情，结果=" + result);
+    }
+
+    @Test
+    void testList(){
+        List<PictureListItemVO> list = mapper.listPicture();
+        log.debug("图片受影响数量：{}",list.size());
+        for (PictureListItemVO pictureListItemVO : list) {
+            log.debug("{}",pictureListItemVO);
+        }
     }
 
 }

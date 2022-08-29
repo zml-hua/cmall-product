@@ -28,6 +28,49 @@
              )
     </delete>
 
+    <!-- int updateById(Brand brand); -->
+    <update id="updateById">
+        UPDATE
+        pms_brand
+        <set>
+            <if test="name != null">
+                name=#{name},
+            </if>
+            <if test="pinyin != null">
+                pinyin=#{pinyin},
+            </if>
+            <if test="logo != null">
+                logo=#{logo},
+            </if>
+            <if test="description != null">
+                description=#{description},
+            </if>
+            <if test="keywords != null">
+                keywords=#{keywords},
+            </if>
+            <if test="sort != null">
+                sort=#{sort},
+            </if>
+            <if test="sales != null">
+                sales=#{sales},
+            </if>
+            <if test="productCount != null">
+                product_count=#{productCount},
+            </if>
+            <if test="commentCount != null">
+                comment_count=#{commentCount},
+            </if>
+            <if test="positiveCommentCount != null">
+                positive_comment_count=#{positiveCommentCount},
+            </if>
+            <if test="enable != null">
+                enable=#{enable},
+            </if>
+        </set>
+        WHERE
+        id=#{id}
+    </update>
+
     <select id="getStandardById" resultMap="StandardResultMap">
         SELECT
             <include refid="StandardQueryFields"></include>
@@ -60,6 +103,11 @@
         pms_brand
         ORDER BY
         sort DESC, id
+    </select>
+
+    <!-- int count(); -->
+    <select id="count" resultType="int">
+        SELECT count(*) FROM pms_brand
     </select>
 
     <!--int countByName(String name);-->

@@ -2,6 +2,7 @@ package cn.tedu.csmall.product.mapper;
 
 import cn.tedu.csmall.product.pojo.entity.Album;
 import cn.tedu.csmall.product.pojo.entity.Brand;
+import cn.tedu.csmall.product.pojo.vo.AlbumListItemVO;
 import cn.tedu.csmall.product.pojo.vo.AlbumStandardVO;
 import cn.tedu.csmall.product.pojo.vo.BrandListItemVO;
 import cn.tedu.csmall.product.pojo.vo.BrandStandardVO;
@@ -65,7 +66,7 @@ public class AlbumMapperTests {
     }
 
     @Test
-    void  testCount() {
+    void  testCountAblum() {
         int count = mapper.countAlbum();
         log.debug("统计相册的数量完成，品牌的数量={}", count);
     }
@@ -86,10 +87,10 @@ public class AlbumMapperTests {
 
     @Test
     void testList(){
-        List<BrandListItemVO> list = mapper.list();
-        log.debug("品牌受影响数量：{}",list.size());
-        for (BrandListItemVO brandListItemVO : list) {
-            log.debug("{}",brandListItemVO);
+        List<AlbumListItemVO> list = mapper.listAlbum();
+        log.debug("相册受影响数量：{}",list.size());
+        for (AlbumListItemVO albumListItemVO : list) {
+            log.debug("{}",albumListItemVO);
         }
     }
 }
