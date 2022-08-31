@@ -61,4 +61,5 @@ public class CategoryMapperTests {
          System.out.println("根据id=" + id + "查询品牌详情，结果=" + result);
      }
 
+
 }
