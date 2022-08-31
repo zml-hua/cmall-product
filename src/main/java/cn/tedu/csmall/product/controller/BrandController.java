@@ -3,6 +3,7 @@ package cn.tedu.csmall.product.controller;
 import cn.tedu.csmall.product.ex.ServiceException;
 import cn.tedu.csmall.product.pojo.dto.BrandAddNewDTO;
 import cn.tedu.csmall.product.service.IBrandService;
+import cn.tedu.csmall.product.web.JsonResult;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -45,14 +46,14 @@ public class BrandController {
     @ApiOperationSupport(order = 200)
     @ApiImplicitParam(name = "id",value = "品牌id",required = true,dataType = "long")
     @PostMapping("/{id:[0-9]+}/delete")
-    public String delete(@PathVariable Long id) {
+    public JsonResult delete(@PathVariable Long id) {
         log.debug("即将处理【删除品牌】的请求，id={}", id);
 
         try {
             brandService.deleteById(id);
-            return "已经完成处理【删除品牌】的请求";
+            return JsonResult.ok();
         } catch (ServiceException e) {
-            return e.getMessage() + "[错误代码：" + e.getServiceCode() + "]";
+            return JsonResult.fail(e);
         }
     }
 
@@ -61,14 +62,14 @@ public class BrandController {
     @ApiOperationSupport(order = 300)
     @ApiImplicitParam(name = "id",value = "品牌id",required = true,dataType = "long")
     @PostMapping("/enable")
-    public String setEnable(Long id) {
+    public JsonResult setEnable(Long id) {
         log.debug("即将处理【启用品牌】的请求，id={}", id);
 
         try {
             brandService.setEnable(id);
-            return "已经完成处理【启用品牌】的请求";
+            return JsonResult.ok();
         } catch (ServiceException e) {
-            return e.getMessage() + "[错误代码：" + e.getServiceCode() + "]";
+            return JsonResult.fail(e);
         }
     }
 
