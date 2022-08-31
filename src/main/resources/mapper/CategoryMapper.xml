@@ -16,6 +16,54 @@
                 #{gmtModified})
     </insert>
 
+    <delete id="deleteCategoryById">
+        DELETE FROM pms_category WHERE id=#{id}
+    </delete>
+
+    <delete id="deleteCategoryByIds">
+        DELETE FROM pms_category WHERE id IN (
+        <foreach collection="array" item="id" separator=",">
+            #{id}
+        </foreach>
+        )
+    </delete>
+
+    <update id="updateCategoryById">
+        UPDATE
+        pms_category
+        <set>
+            <if test="name != null">
+                name=#{name},
+            </if>
+            <if test="parentId != null">
+                parent_id=#{parentId},
+            </if>
+            <if test="depth != null">
+                depth=#{depth},
+            </if>
+            <if test="keywords != null">
+                keywords=#{keywords},
+            </if>
+            <if test="sort != null">
+                sort=#{sort},
+            </if>
+            <if test="icon != null">
+                icon=#{icon},
+            </if>
+            <if test="enable != null">
+                enable=#{enable},
+            </if>
+            <if test="isParent != null">
+                is_parent=#{isParent},
+            </if>
+            <if test="isDisplay != null">
+                is_display=#{isDisplay},
+            </if>
+        </set>
+        WHERE
+        id=#{id}
+    </update>
+
     <select id="countC" resultType="int">
         SELECT count(*) FROM pms_category
     </select>
@@ -37,6 +85,75 @@
     </sql>
 
     <resultMap id="StandardResultMapC" type="cn.tedu.csmall.product.pojo.vo.CategoryStandardVO">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="depth" property="depth"/>
+        <result column="keywords" property="keywords"/>
+        <result column="sort" property="sort"/>
+        <result column="icon" property="icon"/>
+        <result column="enable" property="enable"/>
+        <result column="is_parent" property="isParent"/>
+        <result column="is_display" property="isDisplay"/>
+    </resultMap>
+
+    <select id="getCategoryStandardById" resultMap="StandardCategoryResultMap">
+        SELECT
+        <include refid="StandardCategoryQueryFields"></include>
+        FROM
+        pms_category
+        WHERE
+        id=#{id}
+    </select>
+
+    <sql id="StandardCategoryQueryFields">
+        <if test="true">
+            name, parent_id, depth, keywords, sort,
+            icon, enable, is_parent, is_display
+        </if>
+    </sql>
+
+    <resultMap id="StandardCategoryResultMap" type="cn.tedu.csmall.product.pojo.vo.CategoryStandardVO">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="depth" property="depth"/>
+        <result column="keywords" property="keywords"/>
+        <result column="sort" property="sort"/>
+        <result column="icon" property="icon"/>
+        <result column="enable" property="enable"/>
+        <result column="is_parent" property="isParent"/>
+        <result column="is_display" property="isDisplay"/>
+    </resultMap>
+
+    <!--int countAlbumByName(String name);-->
+    <select id="countCategoryByName" resultType="java.lang.Integer" >
+        SELECT
+            COUNT(*)
+        FROM
+            pms_category
+        WHERE name=#{name}
+    </select>
+
+
+    <select id="listCategory" resultMap="ListCategoryResultMap">
+        SELECT
+        <include refid="ListCategoryQueryFields"/>
+        FROM
+        pms_category
+        ORDER BY
+        sort DESC, id
+    </select>
+
+    <sql id="ListCategoryQueryFields">
+        <if test="true">
+            name, parent_id, depth, keywords, sort,
+            icon, enable, is_parent, is_display
+        </if>
+    </sql>
+
+    <resultMap id="ListCategoryResultMap"
+               type="cn.tedu.csmall.product.pojo.vo.CategoryListItemVO">
         <id column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="parent_id" property="parentId"/>

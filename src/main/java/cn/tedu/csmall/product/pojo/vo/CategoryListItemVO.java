@@ -1,12 +1,9 @@
-package cn.tedu.csmall.product.pojo.dto;
+package cn.tedu.csmall.product.pojo.vo;
 
 import lombok.Data;
 
-import java.io.Serializable;
-
 @Data
-public class BrandAddNewDTO implements Serializable {
-
+public class CategoryListItemVO {
     private Long id;
     private String name;
     private Long parentId;
