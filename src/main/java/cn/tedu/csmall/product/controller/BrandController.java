@@ -25,7 +25,7 @@ public class BrandController {
     @Autowired
     private IBrandService brandService;
 
-    //http://localhost:9080/add-new
+    // http://localhost:9080/brands/add-new
     @ApiOperation("添加品牌")
     @ApiOperationSupport(order = 100)
     @RequestMapping("/add-new")
@@ -62,7 +62,7 @@ public class BrandController {
     @ApiOperationSupport(order = 300)
     @ApiImplicitParam(name = "id",value = "品牌id",required = true,dataType = "long")
     @PostMapping("/enable")
-    public JsonResult setEnable(Long id) {
+    public JsonResult<Void> setEnable(Long id) {
         log.debug("即将处理【启用品牌】的请求，id={}", id);
 
         try {

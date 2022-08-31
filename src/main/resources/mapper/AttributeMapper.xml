@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.tedu.csmall.product.mapper.AttributeMapper">
+
+    <!-- -->
+    <insert id="insertAttribute" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO pms_album (
+           name, description, sort
+        ) VALUES (
+                     #{name}, #{description},#{sort}
+                 )
+    </insert>
+
+    <delete id="deleteAttributeById">
+        DELETE FROM pms_album WHERE id=#{id}
+    </delete>
+
+    <delete id="deleteAttributeByIds">
+         DELETE FROM pms_brand WHERE id IN (
+             <foreach collection="array" item="id" separator=",">
+                #{id}
+             </foreach>
+             )
+    </delete>
+
+    <update id="updateAttributeById">
+        UPDATE
+           pms_album
+        <set>
+            <if test="name!= null" >
+                name=#{name},
+            </if>
+            <if test="description!= null" >
+                description=#{description},
+            </if>
+            <if test="sort!= null" >
+                sort=#{sort},
+            </if>
+        </set>
+        WHERE
+        id=#{id}
+    </update>
+
+    <select id="countAttribute" resultType="int">
+        SELECT count(*) FROM pms_album
+    </select>
+
+
+    <select id="getAttributeStandardById" resultMap="StandardAttributeResultMap">
+        SELECT
+            <include refid="StandardAttributeQueryFields"></include>
+        FROM
+            pms_album
+        WHERE
+            id=#{id}
+    </select>
+
+    <sql id="StandardAttributeQueryFields">
+        <if test="true">
+            name, description, sort
+        </if>
+    </sql>
+
+    <resultMap id="StandardAttributeResultMap" type="cn.tedu.csmall.product.pojo.vo.AttributeStandardVO">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="description" property="description"/>
+        <result column="sort" property="sort"/>
+    </resultMap>
+
+    <!--int countAlbumByName(String name);-->
+    <select id="countAttributeByName" resultType="java.lang.Integer" >
+        SELECT
+           COUNT(*)
+        FROM
+           pms_album
+        WHERE name=#{name}
+    </select>
+
+
+    <select id="listAttribute" resultMap="ListAttributeResultMap">
+        SELECT
+        <include refid="ListAlbumQueryFields"/>
+        FROM
+        pms_album
+        ORDER BY
+        sort DESC, id
+    </select>
+
+    <sql id="ListAttributeQueryFields">
+        <if test="true">
+            id,name, description, sort
+        </if>
+    </sql>
+
+    <resultMap id="ListAttributeResultMap"
+               type="cn.tedu.csmall.product.pojo.vo.AttributeListItemVO">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="description" property="description"/>
+        <result column="sort" property="sort"/>
+    </resultMap>
+
+</mapper>
