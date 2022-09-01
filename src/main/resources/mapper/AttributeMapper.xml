@@ -5,19 +5,21 @@
 
     <!-- -->
     <insert id="insertAttribute" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO pms_album (
-           name, description, sort
+        INSERT INTO pms_attribute (
+           name, description, type, input_type, value_list,
+           unit, sort, is_allow_customize,template_id
         ) VALUES (
-                     #{name}, #{description},#{sort}
+              #{name}, #{description}, #{type}, #{inputType}, #{valueList},
+              #{unit}, #{sort}, #{isAllowCustomize}, #{templateId}
                  )
     </insert>
 
     <delete id="deleteAttributeById">
-        DELETE FROM pms_album WHERE id=#{id}
+        DELETE FROM pms_attribute WHERE id=#{id}
     </delete>
 
     <delete id="deleteAttributeByIds">
-         DELETE FROM pms_brand WHERE id IN (
+         DELETE FROM pms_attribute WHERE id IN (
              <foreach collection="array" item="id" separator=",">
                 #{id}
              </foreach>
@@ -26,16 +28,34 @@
 
     <update id="updateAttributeById">
         UPDATE
-           pms_album
+           pms_attribute
         <set>
-            <if test="name!= null" >
+            <if test="templateId != null">
+                template_id=#{templateId},
+            </if>
+            <if test="name != null">
                 name=#{name},
             </if>
-            <if test="description!= null" >
+            <if test="description != null">
                 description=#{description},
             </if>
-            <if test="sort!= null" >
+            <if test="type != null">
+                type=#{type},
+            </if>
+            <if test="inputType != null">
+                input_type=#{inputType},
+            </if>
+            <if test="valueList != null">
+                value_list=#{valueList},
+            </if>
+            <if test="unit != null">
+                unit=#{unit},
+            </if>
+            <if test="sort != null">
                 sort=#{sort},
+            </if>
+            <if test="isAllowCustomize != null">
+                is_allow_customize=#{isAllowCustomize},
             </if>
         </set>
         WHERE
@@ -43,7 +63,7 @@
     </update>
 
     <select id="countAttribute" resultType="int">
-        SELECT count(*) FROM pms_album
+        SELECT count(*) FROM pms_attribute
     </select>
 
 
@@ -51,22 +71,29 @@
         SELECT
             <include refid="StandardAttributeQueryFields"></include>
         FROM
-            pms_album
+            pms_attribute
         WHERE
             id=#{id}
     </select>
 
     <sql id="StandardAttributeQueryFields">
         <if test="true">
-            name, description, sort
+            id,template_id,name,description,type,
+            input_type,value_list,unit,sort,is_allow_customize
         </if>
     </sql>
 
     <resultMap id="StandardAttributeResultMap" type="cn.tedu.csmall.product.pojo.vo.AttributeStandardVO">
         <id column="id" property="id"/>
+        <result column="template_id" property="templateId"/>
         <result column="name" property="name"/>
         <result column="description" property="description"/>
+        <result column="type" property="type"/>
+        <result column="input_type" property="inputType"/>
+        <result column="value_list" property="valueList"/>
+        <result column="unit" property="unit"/>
         <result column="sort" property="sort"/>
+        <result column="is_allow_customize" property="isAllowCustomize"/>
     </resultMap>
 
     <!--int countAlbumByName(String name);-->
@@ -74,23 +101,24 @@
         SELECT
            COUNT(*)
         FROM
-           pms_album
+           pms_attribute
         WHERE name=#{name}
     </select>
 
 
     <select id="listAttribute" resultMap="ListAttributeResultMap">
         SELECT
-        <include refid="ListAlbumQueryFields"/>
+        <include refid="ListAttributeQueryFields"/>
         FROM
-        pms_album
+        pms_attribute
         ORDER BY
         sort DESC, id
     </select>
 
     <sql id="ListAttributeQueryFields">
         <if test="true">
-            id,name, description, sort
+            id,name,description,type,input_type,
+            value_list,unit,sort,is_allow_customize
         </if>
     </sql>
 
@@ -99,7 +127,12 @@
         <id column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="description" property="description"/>
+        <result column="type" property="type"/>
+        <result column="input_type" property="inputType"/>
+        <result column="value_list" property="valueList"/>
+        <result column="unit" property="unit"/>
         <result column="sort" property="sort"/>
+        <result column="is_allow_customize" property="isAllowCustomize"/>
     </resultMap>
 
 </mapper>

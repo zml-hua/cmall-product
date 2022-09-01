@@ -136,7 +136,7 @@
     </select>
 
 
-    <select id="listCategory" resultMap="ListCategoryResultMap">
+    <select id="listByParentId" resultMap="ListCategoryResultMap">
         SELECT
         <include refid="ListCategoryQueryFields"/>
         FROM
@@ -165,4 +165,9 @@
         <result column="is_parent" property="isParent"/>
         <result column="is_display" property="isDisplay"/>
     </resultMap>
+
+    <!-- int countByParentId(Long parentId); -->
+    <select id="countByParentId" resultType="int">
+        SELECT count(*) FROM pms_category WHERE parent_id=#{parentId}
+    </select>
 </mapper>

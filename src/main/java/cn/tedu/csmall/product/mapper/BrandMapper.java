@@ -62,6 +62,12 @@ public interface BrandMapper {
      */
     List<BrandListItemVO> list();
 
+    /**
+     * 根据品牌名称统计数据的数量
+     *
+     * @param name 品牌名称
+     * @return 匹配名称的品牌数据的数量
+     */
     int countByName(String name);
 
 }

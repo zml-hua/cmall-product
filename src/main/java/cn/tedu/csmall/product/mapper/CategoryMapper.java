@@ -15,6 +15,12 @@ import java.util.List;
  */
 @Repository
 public interface CategoryMapper {
+    /**
+     * 插入类别数据
+     *
+     * @param category 类别数据
+     * @return 受影响的行数
+     */
     int insert1(Category category);
 
     /**
@@ -24,6 +30,12 @@ public interface CategoryMapper {
      */
     int countC();
 
+    /**
+     * 根据id获取类别的标准信息
+     *
+     * @param id 类别id
+     * @return 返回匹配的类别的标准信息，如果没有匹配的数据，将返回null
+     */
     CategoryStandardVO getStandardByIdC(Long id);
 
     /**
@@ -49,11 +61,27 @@ public interface CategoryMapper {
     CategoryStandardVO getCategoryStandardById(Long id);
 
     /**
-     * 查询品牌列表
+     * 根据父级类别的id查询类别列表
      *
-     * @return 品牌列表，如果没有匹配的品牌，将返回长度为0的列表
+     * @param parentId 父级类别的id
+     * @return 类别列表
      */
-    List<CategoryListItemVO> listCategory();
+    List<CategoryListItemVO> listByParentId(Long parentId);
 
+
+    /**
+     * 根据类别名称统计当前表中类别数据的数量
+     *
+     * @param name 类别名称
+     * @return 当前表中匹配名称的类别数据的数量
+     */
     int countCategoryByName(String name);
+
+    /**
+     * 根据父级类别，统计其子级类别的数量
+     *
+     * @param parentId 父级类别的id
+     * @return 此类别的子级类别的数量
+     */
+    int countByParentId(Long parentId);
 }

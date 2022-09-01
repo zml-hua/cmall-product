@@ -38,11 +38,11 @@ public class PictureMapperTests {
         log.debug("根据id批量删除图片完成，受影响的行数={}",rows);
     }
 
-    @Test
+    /*@Test
     void  testCountP() {
         int count = mapper.countP();
         System.out.println("统计图片的数量完成，相册的数量=" + count);
-    }
+    }*/
 
     @Test
     void testCetStandardByIdP(){
@@ -53,8 +53,9 @@ public class PictureMapperTests {
 
     @Test
     void testList(){
-        List<PictureListItemVO> list = mapper.listPicture();
-        log.debug("图片受影响数量：{}",list.size());
+        Long albumId = 1L;
+        List<PictureListItemVO> list = mapper.listPicture(albumId);
+        log.debug("根据相册（{}）查询列表完成，结果集中的数据的数量={}", albumId, list.size());
         for (PictureListItemVO pictureListItemVO : list) {
             log.debug("{}",pictureListItemVO);
         }
