@@ -10,6 +10,7 @@ public enum ServiceCode {
     ERR_CONFLICT(40900),
     ERR_INSERT(50000),
     ERR_DELETE(50100),
+
     ERR_UPDATE(50200);
 
     private int value;
