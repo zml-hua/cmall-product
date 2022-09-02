@@ -18,6 +18,7 @@ public class ValidationConfiguration {
     @Bean
     public javax.validation.Validator vvv(){
         return Validation.byProvider(HibernateValidator.class)
+                //我爱你
                 .configure() //开始配置Validator
                 .failFast(true) //快速失败，检查到错误就直接视为失败
                 .buildValidatorFactory()
