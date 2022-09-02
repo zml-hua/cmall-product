@@ -9,7 +9,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,8 +31,8 @@ public class BrandController {
     @ApiOperation("添加品牌")
     @ApiOperationSupport(order = 100)
     @RequestMapping("/add-new")
-    public JsonResult addNew(BrandAddNewDTO brandAddNewDTO){
-        System.out.println("即将处理【添加品牌】的请求……");
+            public JsonResult<Void> addNew(@Validated BrandAddNewDTO brandAddNewDTO){
+        log.debug("开始处理【添加品牌】的请求：{}", brandAddNewDTO);
         System.out.println("brandAddNewDTO = " + brandAddNewDTO);
 
         brandService.addNew(brandAddNewDTO);
@@ -85,9 +87,11 @@ public class BrandController {
     // http://localhost:9080/brands/test/delete
     @ApiOperation("测试删除品牌")
     @ApiOperationSupport(order = 901)
+    @ApiImplicitParam(name = "enable", dataType = "int", paramType = "query")
     @PostMapping("/test/delete")
-    public String delete() {
+    public String delete(@Range(max = 1) Integer enable) {
         log.debug("接收到【删除品牌（测试）】的请求");
+        log.debug("enable = {}", enable);
         throw new RuntimeException("此接口仅用于测试，并未实现任何功能！");
     }
 

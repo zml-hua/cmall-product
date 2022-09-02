@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "03. 相册管理模块")
 public class AlbumController {
 
+    public AlbumController() {
+        log.info("创建控制器：AlbumController");
+    }
+
+
     @GetMapping("/test")
     public void test() {}
 
