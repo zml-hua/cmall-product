@@ -49,6 +49,20 @@
         SELECT count(*) FROM pms_brand_category WHERE brand_id=#{brandId} AND category_id=#{categoryId}
     </select>
 
+    <!-- 提示：此查询除了检查数据是否存在以外，暂无其它意义，则暂时没有配置resultMap -->
+    <!-- BrandCategoryStandardVO getStandardById(Long id); -->
+    <select id="getStandardById" resultType="cn.tedu.csmall.product.pojo.vo.BrandCategoryStandardVO">
+        SELECT
+            id,
+            brand_id AS brandId,
+            category_id AS categoryId
+        FROM
+            pms_brand_category
+        WHERE
+            id=#{id}
+    </select>
+
+
     <!-- List<BrandCategoryListItemVO> list(); -->
     <select id="list" resultType="cn.tedu.csmall.product.pojo.vo.BrandCategoryListItemVO">
         SELECT

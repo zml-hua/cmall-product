@@ -4,6 +4,7 @@ import cn.tedu.csmall.product.ex.ServiceCode;
 import cn.tedu.csmall.product.ex.ServiceException;
 import cn.tedu.csmall.product.mapper.BrandMapper;
 import cn.tedu.csmall.product.pojo.dto.BrandAddNewDTO;
+import cn.tedu.csmall.product.pojo.dto.BrandUpdateDTO;
 import cn.tedu.csmall.product.pojo.entity.Brand;
 import cn.tedu.csmall.product.pojo.vo.BrandStandardVO;
 import cn.tedu.csmall.product.service.IBrandService;
@@ -138,5 +139,32 @@ public class BrandServiceImpl implements IBrandService {
             throw new ServiceException(ServiceCode.ERR_UPDATE, message);
         }
 
+    }
+
+    @Override
+    public void updateById(Long id, BrandUpdateDTO brandUpdateDTO) {
+        log.debug("开始处理【修改品牌详情】的业务，参数：{}", id);
+        // 调用Mapper对象的getDetailsById()方法执行查询
+        BrandStandardVO queryResult = brandMapper.getStandardById(id);
+        // 判断查询结果是否为null
+        if (queryResult == null) {
+            // 是：此id对应的数据不存在，则抛出异常(ERR_NOT_FOUND)
+            String message = "修改品牌详情失败，尝试访问的数据不存在！";
+            log.warn(message);
+            throw new ServiceException(ServiceCode.ERR_NOT_FOUND, message);
+        }
+
+        Brand brand = new Brand();
+        BeanUtils.copyProperties(brandUpdateDTO, brand);
+        brand.setId(id);
+
+        // 修改数据
+        log.debug("即将修改数据：{}", brand);
+        int rows = brandMapper.updateById(brand);
+        if (rows != 1) {
+            String message = "修改品牌详情失败，服务器忙，请稍后再次尝试！";
+            log.warn(message);
+            throw new ServiceException(ServiceCode.ERR_UPDATE, message);
+        }
     }
 }

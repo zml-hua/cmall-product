@@ -79,5 +79,17 @@ public class BrandMapperTests {
         log.debug("count={}",count);
     }
 
+    @Test
+    void testUpdateById() {
+        Brand brand = new Brand();
+        brand.setId(11L);
+        brand.setName("测试品牌-011");
+        brand.setPinyin("ceshipinpai-011");
+        //brand.setLogo("http://www.alibaba.com/brand-11.png");
+
+        int rows = mapper.updateById(brand);
+        log.debug("根据id修改品牌完成，受影响的行数={}", rows);
+    }
+
 
 }

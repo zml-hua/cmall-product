@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
 @Slf4j
 @SpringBootTest
 public class CategoryMapperTests {
@@ -55,10 +57,34 @@ public class CategoryMapperTests {
      }
 
      @Test
+     public void testCountByName() {
+         String name = "某个新类别";
+         int count = mapper.countCategoryByName(name);
+         log.debug("根据名称【{}】统计数量完成，统计结果={}", name, count);
+     }
+
+     @Test
+     public void testCountByParentId() {
+         Long parentId = 11L;
+         int count = mapper.countByParentId(parentId);
+         log.debug("根据父级类别【{}】统计数量完成，统计结果={}", parentId, count);
+     }
+
+     @Test
     void testCetStandardByIdC(){
         Long id = 3L;
          CategoryStandardVO result = mapper.getStandardByIdC(id);
          System.out.println("根据id=" + id + "查询品牌详情，结果=" + result);
+     }
+
+     @Test
+     public void testListByParentId() {
+         Long parentId = 0L;
+         List<?> list = mapper.listByParentId(parentId);
+         log.info("查询列表完成，结果集中的数据的数量={}", list.size());
+         for (Object item : list) {
+             log.info("{}", item);
+         }
      }
 
 

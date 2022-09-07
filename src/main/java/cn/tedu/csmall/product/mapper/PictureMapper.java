@@ -16,19 +16,19 @@ public interface PictureMapper {
      * @param picture 图片数据
      * @return 受影响的行数
      */
-    int insert2(Picture picture);
+    int insert(Picture picture);
 
     /**
      * 根据id删除品牌数据
      * @param id 参数
      * @return 受影响的行数
      */
-    int deletePictureById(Long id);
+    int deleteById(Long id);
 
     /*int deleteByIds(List<Long> ids);*/
     /*int deleteByIds(Long[] ids);*/
 
-    int deletePictureByIds(Long... ids);
+    int deleteByIds(Long... ids);
 
 
     /**
@@ -37,7 +37,7 @@ public interface PictureMapper {
      * @param id 图片id
      * @return 返回匹配的图片的标准信息，如果没有匹配的数据，将返回null
      */
-    PictureStandardVO getStandardByIdP(Long id);
+    PictureStandardVO getStandardById(Long id);
 
     /**
      * 根据相册查询图片列表
@@ -45,5 +45,7 @@ public interface PictureMapper {
      * @param albumId 相册id
      * @return 匹配的图片列表，如果没有匹配的数据，则返回长度为0的列表
      */
-    List<PictureListItemVO> listPicture(Long albumId);
+    List<PictureListItemVO> listByAlbum(Long albumId);
+
+    int countByAlbum(Long albumId);
 }

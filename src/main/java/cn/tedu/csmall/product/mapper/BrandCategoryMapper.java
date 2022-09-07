@@ -2,6 +2,7 @@ package cn.tedu.csmall.product.mapper;
 
 import cn.tedu.csmall.product.pojo.entity.BrandCategory;
 import cn.tedu.csmall.product.pojo.vo.BrandCategoryListItemVO;
+import cn.tedu.csmall.product.pojo.vo.BrandCategoryStandardVO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -71,5 +72,5 @@ public interface BrandCategoryMapper {
      * @return 返回匹配的品牌类别关联的列表，如果没有匹配的数据，将返回长度为0的列表
      */
     List<BrandCategoryListItemVO> list();
-
+    BrandCategoryStandardVO getStandardById(Long id);
 }
