@@ -3,7 +3,7 @@
 
 <mapper namespace="cn.tedu.csmall.product.mapper.SpuMapper">
 
-    <!-- 注意：此id不是自动编号的，则需要插入id值，且不需要配置自动获取id的2个属性 -->
+    <!-- 注意：此id不是自动编号的， 则需要插入id值，且不需要配置自动获取id的2个属性 -->
     <!-- int insert(Spu spu); -->
     <insert id="insert">
         INSERT INTO pms_spu (
